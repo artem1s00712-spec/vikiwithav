@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Birthday Surprise</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background: #ffe4f0;
+        font-family: "Comic Sans MS", sans-serif;
+        overflow: hidden;
+        text-align: center;
+    }
+
+    .cat {
+        width: 180px;
+        margin-top: 40px;
+        animation: bounce 1.3s infinite;
+    }
+
+    @keyframes bounce {
+        0%,100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+
+    .bubble {
+        display: inline-block;
+        background: white;
+        padding: 18px 25px;
+        border-radius: 20px;
+        border: 2px solid #ff7ebc;
+        margin-top: 15px;
+        font-size: 20px;
+        color: #ff2d80;
+        font-weight: 600;
+        animation: fadeIn 1s ease-out;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: scale(0.9); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
+    #catchBtn {
+        position: absolute;
+        left: 40%;
+        top: 70%;
+        padding: 15px 30px;
+        background: #ff60a8;
+        color: white;
+        border: none;
+        font-size: 20px;
+        border-radius: 12px;
+        cursor: pointer;
+        display: none;
+    }
+
+    .heart {
+        position: absolute;
+        color: #ff69b4;
+        font-size: 25px;
+        animation: floatUp 4s linear infinite;
+        opacity: 0.8;
+    }
+
+    @keyframes floatUp {
+        0% { transform: translateY(0); opacity: 1; }
+        100% { transform: translateY(-150px); opacity: 0; }
+    }
+
+    #noteBox, #page2, #page3 {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        padding: 25px;
+        border-radius: 20px;
+        border: 3px solid #ff63b1;
+        width: 80%;
+        max-width: 350px;
+        text-align: center;
+        animation: pop 0.8s ease-out;
+    }
+
+    @keyframes pop {
+        0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+        100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    }
+
+    h2 {
+        color: #ff2d80;
+    }
+
+    .nextBtn {
+        padding: 12px 25px;
+        background: #ff69b4;
+        border: none;
+        color: white;
+        border-radius: 10px;
+        font-size: 18px;
+        margin-top: 20px;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+<img class="cat" src="https://media.tenor.com/ieeMvSkQm2cAAAAi/cute-cat-smile.gif" alt="cute cat">
+
+<div id="dialogue" class="bubble">
+    Hey there hooman 😺
+</div>
+
+<button id="catchBtn">Catch me 😼🎁</button>
+
+<!-- FINAL NOTE -->
+<div id="noteBox">
+    <h2>🎂Happy Birthday Babyyy!🎂</h2>
+    <p>Ini thottu u are not a koch cherkkan 😭 <br><br>
+    May 18 be kinder and warmer to you❤.<br>
+    I know nee ippo aduth illann but <br><br>
+     Here’s a big warm birthday hug 💗<br>
+    And a whole lot of love💕.<br> (Ennano ini kanunne annu treat theran marakkalle)😌</p>
+</div>
+
+<!-- PAGE 2 -->
+<div id="page2">
+    <img src="C:\Users\91963\OneDrive\Documents\WhatsApp Image 2025-11-15 at 04.39.08_440d2c94.jpg" style="width:220px;">
+    <h2>Happy aayit irikk💗<br> (ini enkilum enne pole oru nalla vyakthi aaku😌)</h2>
+    <button class="nextBtn" onclick="goToPage3()">Next →</button>
+</div>
+
+<!-- PAGE 3 -->
+<div id="page3">
+    <img src="C:\Users\91963\OneDrive\Documents\WhatsApp Image 2025-11-15 at 18.41.10_5395e060.jpg" style="width:220px;">
+    <h2>I love you 💗</h2>
+</div>
+
+<script>
+let dialogue = document.getElementById("dialogue");
+let catchBtn = document.getElementById("catchBtn");
+let noteBox = document.getElementById("noteBox");
+
+/* Hearts */
+function createHeart() {
+    let heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.top = "85%";
+    heart.style.fontSize = (20 + Math.random() * 20) + "px";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 4000);
+}
+setInterval(createHeart, 700);
+
+/* Dialogue */
+setTimeout(() => { dialogue.innerHTML = "Are you ready for your surprise? 😸"; }, 1800);
+setTimeout(() => { dialogue.innerHTML = "Then try catching that button! 😼"; catchBtn.style.display = "block"; }, 3500);
+
+/* Button Running */
+let running = true;
+setTimeout(() => running = false, 8000);
+
+catchBtn.addEventListener("mouseover", () => {
+    if (running) {
+        catchBtn.style.left = Math.random() * 80 + "vw";
+        catchBtn.style.top = Math.random() * 70 + "vh";
+    }
+});
+
+/* Catch Event */
+catchBtn.addEventListener("click", () => {
+    noteBox.style.display = "block";
+    catchBtn.style.display = "none";
+    dialogue.style.display = "none";
+
+    setTimeout(() => {
+        let nextBtn = document.createElement("button");
+        nextBtn.innerHTML = "Next →";
+        nextBtn.className = "nextBtn";
+        nextBtn.onclick = goToPage2;
+        noteBox.appendChild(nextBtn);
+    }, 500);
+});
+
+/* PAGE FUNCTIONS */
+function goToPage2() {
+    noteBox.style.display = "none";
+    document.getElementById("page2").style.display = "block";
+}
+
+function goToPage3() {
+    document.getElementById("page2").style.display = "none";
+    document.getElementById("page3").style.display = "block";
+}
+</script>
+
+</body>
+</html>
